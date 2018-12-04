@@ -1,28 +1,42 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, Suspense } from 'react';
+import { Link } from '@reach/router';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+import './app.css';
 
-export default App;
+import logo from './logo.png';
+import examples from './examples/index.js';
+import Spinner from './utils/spinner';
+
+const locale = createContext('en');
+
+const Header = ({ name }) => (
+  <header className="header">
+    <img src={logo} className="logo" alt="logo" />
+    <h1 className="heading">{name}</h1>
+  </header>
+);
+
+const Sidebar = () => (
+  <div className="sidebar">
+    {examples.map(({ name, path }, index) => (
+      <Link className="sidebar-item" key={name} to={path}>
+        <div className="sidebar-item__count">{index}</div>
+        <div className="sidebar-item__name">{name}</div>
+      </Link>
+    ))}
+  </div>
+);
+
+export default ({ name, component: Component }) => {
+  return (
+    <div className="app">
+      <Header name={name} />
+      <main className="content">
+        <Suspense fallback={<Spinner />}>
+          <Component />
+        </Suspense>
+      </main>
+      <Sidebar />
+    </div>
+  );
+};
