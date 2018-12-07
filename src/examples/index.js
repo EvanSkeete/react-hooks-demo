@@ -1,16 +1,5 @@
 import { lazy } from 'react';
 
-// import UseState from './use-state';
-// import UseEffect from './use-effect';
-// import UseContext from './use-context';
-// import UseReducer from './use-reducer';
-// import UseCallback from './use-callback';
-// import UseMemo from './use-memo';
-// import UseRef from './use-ref';
-// import UseImperativeMethods from './use-imperative-methods';
-// import UseMutationEffect from './use-mutation-effect';
-// import UseLayoutEffect from './use-layout-effect';
-
 export default [
   {
     name: 'useState',
@@ -61,5 +50,15 @@ export default [
     name: 'useLayoutEffect',
     path: '/use-layout-effect',
     component: lazy(() => import('./use-layout-effect'))
+  },
+  {
+    name: 'Example App',
+    path: '/example-app',
+    component: lazy(() => import('./example-app'))
+  },
+  {
+    name: 'Suspense example',
+    path: '/example-app-suspense',
+    component: lazy(() => import('./example-app-suspense'))
   }
 ];

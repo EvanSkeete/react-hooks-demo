@@ -93,3 +93,39 @@ input.large {
   padding: 8px;
   font-size: 20px;
 }
+
+.card {
+  width: 80%;
+  background: white;
+  margin-bottom: 16px;
+  box-shadow: 0px 0px 20px -5px #ccc;
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 2px 4px 15px 0px #ccc;
+}
+
+.card__title {
+  padding: 16px;
+}
+
+.card__content {
+  background: #eee;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4em;
+}
+
+.card .spinner {
+  margin: 16px auto;
+  width: 3em;
+  height: 3em;
+}
+
+.error {
+  color: red;
+  font-weight: 600;
+  text-transform: uppercase;
+}

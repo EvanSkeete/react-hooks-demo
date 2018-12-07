@@ -1,4 +1,4 @@
-import React, { createContext, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Link } from '@reach/router';
 
 import './app.css';
@@ -6,8 +6,6 @@ import './app.css';
 import logo from './logo.png';
 import examples from './examples/index.js';
 import Spinner from './utils/spinner';
-
-const locale = createContext('en');
 
 const Header = ({ name }) => (
   <header className="header">
