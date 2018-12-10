@@ -42,14 +42,9 @@ export default [
     component: lazy(() => import('./use-imperative-methods'))
   },
   {
-    name: 'useMutationEffect',
-    path: '/use-mutation-effect',
-    component: lazy(() => import('./use-mutation-effect'))
-  },
-  {
-    name: 'useLayoutEffect',
-    path: '/use-layout-effect',
-    component: lazy(() => import('./use-layout-effect'))
+    name: 'memo',
+    path: '/memo',
+    component: lazy(() => import('./memo-example'))
   },
   {
     name: 'Example App',
