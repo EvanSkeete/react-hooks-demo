@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import MOCK_DATA from '../utils/mock-data';
 import Spinner from '../utils/spinner';
-
-let shiftKeyPressed = false;
+import { shiftKey } from '../utils/key-modifiers';
 
 function get(url) {
   return new Promise((resolve, reject) => {
     setTimeout(
-      () => (shiftKeyPressed ? reject({ url }) : resolve(MOCK_DATA[url])),
+      () => (shiftKey.value ? reject({ url }) : resolve(MOCK_DATA[url])),
       1000
     );
   });
@@ -86,8 +85,9 @@ export default class ExampleApp extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('keydown', this.onKeyDown);
-    window.addEventListener('keyup', this.onKeyUp);
+    this.subscription = shiftKey.subscribe(value => {
+      this.setState({ shiftKey: value });
+    });
 
     get('/posts')
       .then(posts => {
@@ -105,17 +105,8 @@ export default class ExampleApp extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyDown);
-    window.removeEventListener('keyup', this.onKeyUp);
+    this.subscription.unsubscribe();
   }
-
-  onKeyDown = event => {
-    shiftKeyPressed = event.shiftKey;
-  };
-
-  onKeyUp = () => {
-    shiftKeyPressed = false;
-  };
 
   onPostClick = id => {
     this.setState({

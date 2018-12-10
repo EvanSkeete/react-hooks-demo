@@ -2,15 +2,14 @@ import React, { Suspense, useState } from 'react';
 import Spinner from '../utils/spinner';
 import ErrorBoundary from '../utils/error-boundary';
 import Resource from '../utils/cache';
-import useShiftKey from '../utils/use-shift-key';
 import MOCK_DATA from '../utils/mock-data';
-
-let shiftKeyPressed = false;
+import { shiftKey } from '../utils/key-modifiers';
+import useObservable from '../utils/use-observable';
 
 const fetch = url =>
   new Promise((resolve, reject) => {
     setTimeout(
-      () => (shiftKeyPressed ? reject(url) : resolve(MOCK_DATA[url])),
+      () => (shiftKey.value ? reject(url) : resolve(MOCK_DATA[url])),
       1000
     );
   });
@@ -54,8 +53,8 @@ const Posts = () => {
 };
 
 export default () => {
-  shiftKeyPressed = useShiftKey();
-  //console.log('shiftKeyPressed', shiftKeyPressed);
+  const shiftKeyPressed = useObservable(shiftKey, shiftKey.value);
+  console.log('shiftKeyPressed', shiftKeyPressed);
 
   return (
     <Suspense fallback={<Spinner />} maxDuration={0}>

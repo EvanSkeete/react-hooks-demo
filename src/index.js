@@ -10,7 +10,13 @@ import examples from './examples/index.js';
 const Routes = () => (
   <Router>
     {examples.map(({ name, path, component }, index) => (
-      <App default={index === 0} key={path} path={path} name={name} component={component} />
+      <App
+        default={index === 0}
+        key={path}
+        path={path}
+        name={name}
+        component={component}
+      />
     ))}
   </Router>
 );
