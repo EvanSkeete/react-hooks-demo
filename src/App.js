@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, memo } from 'react';
 import { Link } from '@reach/router';
 
 import './app.css';
@@ -7,14 +7,14 @@ import logo from './logo.png';
 import examples from './examples/index.js';
 import Spinner from './utils/spinner';
 
-const Header = ({ name }) => (
+const Header = memo(({ name }) => (
   <header className="header">
     <img src={logo} className="logo" alt="logo" />
     <h1 className="heading">{name}</h1>
   </header>
-);
+));
 
-const Sidebar = () => (
+const Sidebar = memo(() => (
   <div className="sidebar">
     {examples.map(({ name, path }, index) => (
       <Link className="sidebar-item" key={name} to={path}>
@@ -23,7 +23,7 @@ const Sidebar = () => (
       </Link>
     ))}
   </div>
-);
+));
 
 export default ({ name, component: Component }) => {
   return (

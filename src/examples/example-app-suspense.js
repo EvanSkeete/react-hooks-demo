@@ -4,15 +4,20 @@ import ErrorBoundary from '../utils/error-boundary';
 import Resource from '../utils/cache';
 import MOCK_DATA from '../utils/mock-data';
 import { shiftKey } from '../utils/key-modifiers';
+import ConnectionInidicator from '../utils/connection-indicator';
 import useObservable from '../utils/use-observable';
 
-const fetch = url =>
-  new Promise((resolve, reject) => {
+function fetch(url) {
+  return new Promise((resolve, reject) => {
     setTimeout(
-      () => (shiftKey.value ? reject(url) : resolve(MOCK_DATA[url])),
+      () =>
+        shiftKey.value
+          ? reject(url)
+          : resolve(MOCK_DATA[url]),
       1000
     );
   });
+}
 
 const apiResource = new Resource(fetch);
 
@@ -39,7 +44,9 @@ const Post = ({ post, isExpanded, onClick }) => {
 };
 
 const Posts = () => {
-  const [expandedPostId, setExpandedPostId] = useState(null);
+  const [expandedPostId, setExpandedPostId] = useState(
+    null
+  );
   const posts = apiResource.get('/posts');
 
   return posts.map(post => (
@@ -53,14 +60,17 @@ const Posts = () => {
 };
 
 export default () => {
-  const shiftKeyPressed = useObservable(shiftKey, shiftKey.value);
-  console.log('shiftKeyPressed', shiftKeyPressed);
+  const shiftKeyPressed = useObservable(
+    shiftKey,
+    shiftKey.value
+  );
 
   return (
     <Suspense fallback={<Spinner />} maxDuration={0}>
       <ErrorBoundary>
         <Posts />
       </ErrorBoundary>
+      <ConnectionInidicator connected={!shiftKeyPressed} />
     </Suspense>
   );
 };

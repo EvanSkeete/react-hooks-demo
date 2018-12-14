@@ -129,3 +129,17 @@ input.large {
   font-weight: 600;
   text-transform: uppercase;
 }
+
+.connected {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.8em;
+  color: green;
+}
+
+.disconnected {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.8em;
+  color: red;
+}

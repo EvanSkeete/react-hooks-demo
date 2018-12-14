@@ -8,7 +8,9 @@ function expensiveCalc(n) {
 export default () => {
   const [a, setA] = useState(0);
   const [b, setB] = useState(0);
-  const expensiveValue = useMemo(() => expensiveCalc(a), [a]);
+  const expensiveValue = useMemo(() => expensiveCalc(a), [
+    a
+  ]);
 
   return (
     <div>

@@ -37,6 +37,7 @@ export default class Resource {
           // Trigger error boundary by thowing error
           throw new Error(cached.value);
         default:
+          // Should never happen
           return null;
       }
     } else {
@@ -47,31 +48,3 @@ export default class Resource {
     }
   }
 }
-
-// const cache = {};
-
-// export default function get(url) {
-//   const cacheResult = cache[url] || {};
-
-//   if (cacheResult.value) {
-//     console.log('value');
-//     return cacheResult.value;
-//   } else if (cacheResult.error) {
-//     console.log('error');
-//     throw cacheResult.error;
-//   } else {
-//     console.log('promise');
-//     throw new Promise((resolve, reject) => {
-//       setTimeout(() => {
-//         if (Math.random() < 1) {
-//           cache[url] = { value: MOCK_DATA[url] };
-//           resolve();
-//         } else {
-//           console.log('reject');
-//           cache[url] = { error: { url } };
-//           reject();
-//         }
-//       }, 1000);
-//     });
-//   }
-// }

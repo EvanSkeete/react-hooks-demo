@@ -2,17 +2,23 @@ import React, { Component } from 'react';
 import MOCK_DATA from '../utils/mock-data';
 import Spinner from '../utils/spinner';
 import { shiftKey } from '../utils/key-modifiers';
+import ConnectionIndicator from '../utils/connection-indicator';
 
 function get(url) {
   return new Promise((resolve, reject) => {
     setTimeout(
-      () => (shiftKey.value ? reject({ url }) : resolve(MOCK_DATA[url])),
+      () =>
+        shiftKey.value
+          ? reject({ url })
+          : resolve(MOCK_DATA[url]),
       1000
     );
   });
 }
 
-const Error = ({ url }) => <div className="error">Error loading ${url}</div>;
+const Error = ({ url }) => (
+  <div className="error">Error loading ${url}</div>
+);
 
 /* 
  Post component - renders a single post
@@ -67,7 +73,9 @@ class Post extends Component {
     return (
       <div className="card" onClick={this.onClick}>
         <div className="card__title">{post.title}</div>
-        {isExpanded && <div className="card__content">{content}</div>}
+        {isExpanded && (
+          <div className="card__content">{content}</div>
+        )}
       </div>
     );
   }
@@ -115,7 +123,13 @@ export default class ExampleApp extends Component {
   };
 
   render() {
-    const { error, isLoading, posts, expandedPostId } = this.state;
+    const {
+      error,
+      isLoading,
+      posts,
+      expandedPostId,
+      shiftKey
+    } = this.state;
 
     if (error) {
       return <Error {...error} />;
@@ -135,6 +149,7 @@ export default class ExampleApp extends Component {
             post={post}
           />
         ))}
+        <ConnectionIndicator connected={!shiftKey} />
       </>
     );
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from '@reach/router';
 
@@ -22,4 +22,8 @@ const Routes = () => (
 );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Routes />);
+root.render(
+  <StrictMode>
+    <Routes />
+  </StrictMode>
+);
